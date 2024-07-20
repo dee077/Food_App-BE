@@ -34,7 +34,7 @@ const deleteImage = async (req, res) => {
   const { filename } = req.params;
   try {
     await fs.remove(path.join(__dirname, '../uploads', filename));
-    res.sendStatus(200);
+    res.status(200).json({ message: 'Image successfully deleted.' });
   } catch (err) {
     res.status(500).send('Error deleting file.');
   }
@@ -43,7 +43,7 @@ const deleteImage = async (req, res) => {
 const clearImages = async (req, res) => {
   try {
     await fs.emptyDir(path.join(__dirname, '../uploads'));
-    res.sendStatus(200);
+    res.status(200).json({ message: 'All Images deleted successfully.' });
   } catch (err) {
     res.status(500).send('Error clearing images.');
   }
