@@ -34,7 +34,7 @@ const validateSignUpData = async (req, res) => {
 };
 
 module.exports = async (req, res) => {
-  const { name, email, password, profileUrl, userType } = req.body;
+  const { name, email, password, imageId, userType } = req.body;
   const isValid = await validateSignUpData(req, res);
   if (isValid) {
     try {
@@ -43,7 +43,7 @@ module.exports = async (req, res) => {
         name,
         email,
         password: hashedPassword,
-        profileUrl,
+        imageId,
         userType,
       });
       const jwtToken = jwt.sign(
@@ -61,7 +61,7 @@ module.exports = async (req, res) => {
           _id: user.id,
           name: user.name,
           email: user.email,
-          profileUrl: user.profileUrl,
+          imageId: user.imageId,
           userType: user.userType,
         },
         jwtToken

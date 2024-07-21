@@ -18,9 +18,9 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please enter password"],
     minLength: [6, "Minimum password lenght required is 6"],
   },
-  profileUrl: {
+  imageId: {
     type: String,
-    default: "https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png",
+    default: null,
   },
   userType: {
     type: String,

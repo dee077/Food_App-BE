@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
           _id: dbUser.id,
           name: dbUser.name,
           email: dbUser.email,
-          profileUrl: dbUser.profileUrl,
+          imageId: dbUser.imageId,
           userType: dbUser.userType,
         },
         jwtToken,
