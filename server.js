@@ -17,17 +17,33 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors({
   origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
 
-app.use(express.json());
+app.options('*', cors());
 
-try {
-  mongoose.connect(process.env.MONGODB_URI);
-  console.log("Connected to MongoDB");
-} catch (error) {
-  console.log("MongoDB Connection failed")
+async function connectDB() {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.log("MongoDB Connection failed", error);
+    process.exit(1); // Exit the application if the connection fails
+  }
 }
+
+connectDB();
+
+
+app.get('/', (req, res) => {
+  res.send('Hello Food App Backend');
+});
+
+app.use(express.json());
 
 app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -39,3 +55,5 @@ app.use('/api/auth', authRoutes);
 app.listen(PORT, () => {
   console.log(`Listening at port: ${PORT}`);
 });
+
+module.exports = app
